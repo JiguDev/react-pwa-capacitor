@@ -1,10 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Device } from "@capacitor/device";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+
+const logDeviceInfo = async () => {
+  const info = await Device.getInfo();
+  console.log("Device Info:", info);
+  return info;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [deviceInfo, setDeviceInfo] = useState<any>(null);
+
+  useEffect(() => {
+    logDeviceInfo().then((info) => setDeviceInfo(info));
+  }, []);
 
   return (
     <>
@@ -16,7 +28,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Vite + React + Capacitor</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -28,8 +40,14 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      {deviceInfo && (
+        <div className="device-info">
+          <h2>Device Information:</h2>
+          <pre>{JSON.stringify(deviceInfo, null, 2)}</pre>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
