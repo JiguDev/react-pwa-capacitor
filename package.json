@@ -5,9 +5,32 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build:web": "tsc -b && vite build",
+    "preview": "vite preview",
+    "build": "npm run build:web",
+    "cap:doctor": "npx cap doctor",
+    "cap:sync": "npx cap sync",
+    "cap:copy": "npx cap copy",
+    "cap:clean": "rimraf android ios && npx cap sync",
+    "android:add": "npx cap add android",
+    "android:sync": "npx cap sync android",
+    "android:debug": "npx cap run android --livereload --external",
+    "android:open": "npx cap open android",
+    "android:run": "npx cap run android",
+    "android:build": "npm run build:web && npx cap sync android",
+    "android:rebuild": "rimraf android && npm run android:add && npm run android:build",
+    "ios:add": "npx cap add ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:debug": "npx cap run ios --livereload --external",
+    "ios:open": "npx cap open ios",
+    "ios:run": "npx cap run ios",
+    "ios:build": "npm run build:web && npx cap sync ios",
+    "ios:rebuild": "rimraf ios && npm run ios:add && npm run ios:build",
+    "debug:android": "concurrently \"npm run dev\" \"npm run android:debug\"",
+    "debug:ios": "concurrently \"npm run dev\" \"npm run ios:debug\"",
+    "demo:android": "npm run android:build && npm run android:open",
+    "demo:ios": "npm run ios:build && npm run ios:open",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
@@ -25,6 +48,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
@@ -35,5 +59,6 @@
   },
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
