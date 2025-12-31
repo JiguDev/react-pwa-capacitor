@@ -21,7 +21,7 @@
     "android:rebuild": "rimraf android && npm run android:add && npm run android:build",
     "ios:add": "npx cap add ios",
     "ios:sync": "npx cap sync ios",
-    "ios:debug": "npx cap run ios --livereload --external",
+    "ios:debug": "npx cap run ios --live-reload",
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
     "ios:build": "npm run build:web && npx cap sync ios",
@@ -38,6 +38,8 @@
     "@capacitor/core": "^8.0.0",
     "@capacitor/device": "^8.0.0",
     "@capacitor/ios": "^8.0.0",
+    "@capacitor/local-notifications": "^8.0.0",
+    "@capacitor/push-notifications": "^8.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "vite-plugin-pwa": "^1.2.0"
